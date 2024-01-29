@@ -21,7 +21,7 @@
     <description>企业设备管理系统</description>
     <properties>
         <java.version>1.8</java.version>
-        <Hutool.version>5.8.18</Hutool.version>
+        <Hutool.version>5.8.25</Hutool.version>
         <mysql.version>8.0.33</mysql.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <hutool.version>5.8.18</hutool.version>
@@ -97,7 +97,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
-            <version>5.8.18</version>
+            <version>5.8.25</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
@@ -108,11 +108,6 @@
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.83</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.axis</groupId>
-            <artifactId>axis</artifactId>
-            <version>1.4</version>
         </dependency>
         <!--  Hu tool 工具包 -->
         <dependency>
