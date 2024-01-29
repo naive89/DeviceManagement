@@ -37,22 +37,31 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+    private final UserMapper userMapper;
+
+    private final CommonMapper commonMapper;
+
+    private final RoleMapper roleMapper;
+
+    private final LoginMapper loginMapper;
+
+    private final UserRoleMapper userRoleMapper;
+
+    private final DictService dictService;
+
+    private final GzipUtils gzipUtils;
+
     @Autowired
-    private UserMapper userMapper;
-    @Autowired
-    private CommonMapper commonMapper;
-    @Autowired
-    private RoleMapper roleMapper;
-    @Autowired
-    private LoginMapper loginMapper;
-    @Autowired
-    private UserRoleMapper userRoleMapper;
-    @Autowired
-    private RedisUtils redisUtils;
-    @Autowired
-    private DictService dictService;
-    @Autowired
-    private GzipUtils gzipUtils;
+    public UserServiceImpl(UserMapper userMapper, CommonMapper commonMapper, RoleMapper roleMapper, LoginMapper loginMapper, UserRoleMapper userRoleMapper,  DictService dictService, GzipUtils gzipUtils) {
+        this.userMapper = userMapper;
+        this.commonMapper = commonMapper;
+        this.roleMapper = roleMapper;
+        this.loginMapper = loginMapper;
+        this.userRoleMapper = userRoleMapper;
+        this.dictService = dictService;
+        this.gzipUtils = gzipUtils;
+    }
 
     @Override
     public PageVo<UserVo> getList(PageBo pageBo) {
@@ -159,12 +168,10 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public R<String> insert(UserBo bo) {
-        if (checkUserExist(bo.getUsername()))
-            return R.fail("用户名已存在");
+        if (checkUserExist(bo.getUsername())) return R.fail("用户名已存在");
         String check = CheckUtils.checkUserBo(bo);
         //检查结果不为空
-        if (StringUtils.isNotEmpty(check))
-            return R.fail(check);
+        if (StringUtils.isNotEmpty(check)) return R.fail(check);
         //校验没问题
         User user = new User();
         user.setUsername(user.getUsername());
