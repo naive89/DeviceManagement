@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grays2.system.mapper.RoleMapper">
+    <sql id="getAllRole">
+        select *
+        from sys_role
+    </sql>
+    <insert id="insertBo">
+        insert into sys_role (role_name, remark, create_user_id, create_time, access, activation)
+        values (#{bo.roleName}, #{bo.remark}, #{bo.createUserId}, #{bo.createTime}, #{bo.access}, #{bo.activation})
+    </insert>
+    <update id="updateBo">
+        update sys_role set
+        <if test="roleBo.roleName!=null and roleBo.roleName!= ''">
+            role_name=#{roleBo.roleName},
+        </if>
+        <if test="roleBo.remark!=null and roleBo.remark!= ''">
+            remark=#{roleBo.remark},
+        </if>
+        <if test="roleBo.createUserId!=null and roleBo.createUserId!= ''">
+            create_user_id=#{roleBo.createUserId},
+        </if>
+        <if test="roleBo.createTime!=null">
+            create_time=#{roleBo.createTime},
+        </if>
+        <if test="roleBo.access!=null and roleBo.access!= ''">
+            access=#{roleBo.access},
+        </if>
+        <if test="roleBo.activation!=null and roleBo.activation!= ''">
+            activation=#{roleBo.activation},
+        </if>
+        role_id=#{roleBo.roleId}
+        where role_id=#{roleBo.roleId}
+    </update>
+    <delete id="deleteBo">
+        delete
+        from sys_role
+        where role_id = #{roleBo.roleId}
+    </delete>
+    <select id="getList" resultType="com.grays2.system.domain.Role">
+        <include refid="getAllRole"/>
+    </select>
+    <select id="getRoleByUsername" resultType="com.grays2.system.domain.Role">
+        select sr.*
+        from sys_role sr
+                 left join sys_user_role sur on sr.role_id = sur.role_id
+                 left outer join sys_user su on su.user_id = sur.user_id
+        where su.username = #{username}
+    </select>
+    <select id="getLastRole" resultType="com.grays2.system.domain.Role">
+        select *
+        from sys_role
+        order by access Desc
+        limit 1
+    </select>
+    <select id="getLastId" resultType="java.lang.Integer">
+        select role_id
+        from sys_role
+        order by role_id desc
+        limit 1
+    </select>
+    <select id="getRoleByAccount" resultType="com.grays2.system.domain.Role">
+        select sr.*
+        from sys_role sr
+                 left join sys_user_role sur on sr.role_id = sur.role_id
+                 left outer join sys_user su on su.user_id = sur.user_id
+        where su.account = #{account}
+    </select>
+    <select id="getRoleByUserId" resultType="com.grays2.system.domain.Role">
+        select sr.*
+        from sys_role sr
+                 left join sys_user_role sur on sr.role_id = sur.role_id
+                 left outer join sys_user su on su.user_id = sur.user_id
+        where su.user_id = #{userId}
+    </select>
+    <select id="getByAccess" resultType="com.grays2.system.domain.Role">
+        <include refid="getAllRole"/>
+        where access=#{access}
+    </select>
+</mapper>

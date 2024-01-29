@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grays2.system.mapper.UserMapper">
+    <sql id="getAllUser">
+        select user.user_id,
+               user.mobile,
+               user.email,
+               user.name,
+               user.username,
+               user.account,
+               user.status,
+               user.create_time,
+#                user.create_user_id,
+               sr.access,
+               sr.role_name,
+               si.image
+        from sys_user user
+                 left join sys_user_role sur on user.user_id = sur.user_id
+                 left join sys_role sr on sur.role_id = sr.role_id
+                 left join sys_image si on user.image_id = si.id
+        order by sr.access, user.user_id
+    </sql>
+    <sql id="getUser">
+        select *
+        from sys_user user
+    </sql>
+    <sql id="getUserByUsername">
+        select su.user_id,
+               su.username,
+               su.name,
+               su.mobile,
+               su.email,
+               su.password,
+               su.salt,
+               su.status,
+               su.remark,
+               su.image_id
+        from sys_user su
+        where su.username = #{username}
+    </sql>
+    <sql id="getUserByUserId">
+        select su.user_id,
+               su.username,
+               su.name,
+               su.mobile,
+               su.email,
+               su.salt,
+               su.status,
+               su.remark,
+               su.image_id
+        from sys_user su
+        where su.user_id = #{userId}
+    </sql>
+    <insert id="insertUserList">
+        insert into sys_user (user_id, account, username, password, salt, email, mobile, status, create_time,
+        name,image_id, remark) values
+        <foreach collection="list" separator="," item="item">
+            (#{item.userId},#{item.account},#{item.username},#{item.password}
+            ,#{item.salt},#{item.email},#{item.mobile},#{item.status}
+            ,#{item.createTime},#{item.name},#{item.imageId},#{item.remark})
+        </foreach>
+    </insert>
+    <update id="updatePwd">
+        update sys_user su
+        set su.password=#{password}
+        where su.username = #{username}
+    </update>
+    <update id="updateImage">
+        update sys_user
+        set image_id =#{id}
+        where username = #{username}
+    </update>
+    <update id="updateBoByUserId">
+        update sys_user su
+        set su.username =#{bo.username}
+          , su.name=#{bo.name}
+          , su.remark=#{bo.remark}
+          , su.mobile=#{bo.mobile}
+          , su.email=#{bo.email}
+        where su.user_id = #{bo.userId}
+    </update>
+    <delete id="deleteList">
+        delete from sys_user where user_id in
+        <foreach collection="list" index="index" open="(" close=")" separator="," item="item">
+            #{item.userId}
+        </foreach>
+    </delete>
+    <select id="getUserByUsername" parameterType="String" resultType="com.grays2.system.domain.model.LoginUser">
+        <include refid="getUserByUsername"/>
+    </select>
+    <select id="getUserListVo" resultType="com.grays2.system.domain.vo.UserVo">
+        <include refid="getAllUser"/>
+    </select>
+    <select id="getUserList" resultType="com.grays2.system.domain.User">
+        <include refid="getAllUser"/>
+    </select>
+    <select id="selectUserLists" resultType="com.grays2.system.domain.vo.UserVo">
+        <include refid="getUser"/>
+        where user.username like concat ('%',#{username},'%')
+        or user.name like concat ('%',#{username},'%')
+    </select>
+    <select id="getUserByUsernameVo" resultType="com.grays2.system.domain.vo.UserVo">
+        <include refid="getUserByUsername"/>
+    </select>
+    <select id="getUserByUserIdBo" resultType="com.grays2.system.domain.bo.UserBo">
+        <include refid="getUserByUserId"/>
+    </select>
+    <select id="getLastId" resultType="java.lang.Integer">
+        select user_id
+        from sys_user
+        order by user_id desc
+        limit 1
+    </select>
+    <select id="getUserByAccount" resultType="com.grays2.system.domain.User">
+        <include refid="getUser"/>
+        where account=#{account}
+    </select>
+</mapper>

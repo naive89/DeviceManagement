@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grays2.system.mapper.RoleMenuMapper">
+    <insert id="insertList">
+        insert into sys_role_menu (menu_id, access,relationship) values
+        <foreach collection="list" item="item" separator=",">
+            (#{item.menuId},#{item.access},#{item.relationship})
+        </foreach>
+    </insert>
+    <delete id="deleteList">
+        delete from sys_role_menu where
+        <foreach collection="list" item="item" separator="or">
+            (menu_id=#{item.menuId} and access =#{item.access})
+        </foreach>
+    </delete>
+</mapper>

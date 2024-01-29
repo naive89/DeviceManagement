@@ -1,0 +1,83 @@
+device:
+  version: 1.0.0
+dataBase:
+  # 检查数据库
+  check: false
+  # 创建数据库数据
+  create:
+    createFriendList: false
+    createScoreList: false
+    createProcessList: false
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://124.70.45.144:3306/device?serverTimezone=GMT%2B8&useUnicode=true&autoReconnect=true&allowMultiQueries=true&userSSL=false&characterEncoding=UTF8
+    username: root
+    password: 12d8870390857f96
+
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+
+  mvc:
+    pathmatch:
+      matching-strategy:
+        ANT_PATH_MATCHER
+
+  redis:
+    host: 124.70.45.144
+    port: 6379
+    database: 3
+    password: a3f6aedd8df57c93
+    connect-timeout: 3000
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB # 设置单个文件的大小为10M
+      max-request-size: 100MB # 设置总上传的数据大小为50M
+
+server:
+  port: 8888
+  tomcat:
+    uri-encoding: UTF-8
+    accept-count: 6000
+    threads:
+      max: 800
+      min-spare: 100
+
+#mybatis:
+#    mapper-locations:
+#        classpath*:
+#            mappers/*.xml
+############## Sa-Token 配置 (文档: https://sa-token.cc) ##############
+sa-token:
+  # token名称 (同时也是cookie名称)
+  token-name: saToken
+  # token有效期，单位s 默认30天, -1代表永不过期
+  timeout: 2592000
+  # token临时有效期 (指定时间内无操作就视为token过期) 单位: 秒
+  activity-timeout: -1
+  # 是否允许同一账号并发登录 (为true时允许一起登录, 为false时新登录挤掉旧登录)
+  is-concurrent: true
+  # 在多人登录同一账号时，是否共用一个token (为true时所有登录共用一个token, 为false时每次登录新建一个token)
+  is-share: true
+  # token风格
+  token-style: uuid
+  # 是否输出操作日志
+  is-log: true
+pagehelper:
+  # 设置方言，此处指定 MySQL 数据库
+  helper-dialect: mysql
+  # 是否启动合理化，默认是 false。
+  # 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages（最大页数）会查询最后一页。
+  # 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据
+  reasonable: true
+  # 是否支持接口参数来传递分页参数，默认false
+  support-methods-arguments: true
+  # 为了支持startPage(Object params)方法，增加了该参数来配置参数映射，用于从对象中根据属性名取值
+  params: count=countSql
+  # 默认值为 false，当该参数设置为 true 时，如果 pageSize=0 或者 RowBounds.limit = 0 就会查询出全部的结果（相当于没有执行分页查询，但是返回结果仍然是 Page 类型）
+  page-size-zero: true
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

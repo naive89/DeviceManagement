@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grays2.system.mapper.MenuMapper">
+    <resultMap id="VarcharToList" type="com.grays2.system.domain.Menu">
+        <result column="perms" property="perms"
+                typeHandler="com.grays2.common.typeHandler.ListToVarcharTypeHandler"/>
+        <result column="role" property="role"
+                typeHandler="com.grays2.common.typeHandler.ListToVarcharTypeHandler"/>
+    </resultMap>
+    <sql id="getMenuList">
+        select *
+        from sys_menu
+    </sql>
+    <insert id="insertMenuBo" keyColumn="menu_id" keyProperty="menu_id" useGeneratedKeys="true">
+        insert into sys_menu (parent_id, name, url, perms_type, role_type, type, icon, order_num, access,
+                              perms, role)
+        VALUES (#{menu.parentId}, #{menu.name}, #{menu.url}, #{menu.permsType}, #{menu.roleType},
+                #{menu.type}, #{menu.icon}, #{menu.orderNum}, #{menu.access},
+                #{menu.perms,typeHandler=com.grays2.common.typeHandler.ListToVarcharTypeHandler},
+                #{menu.role,typeHandler=com.grays2.common.typeHandler.ListToVarcharTypeHandler})
+    </insert>
+    <select id="getMenuByAccess" resultType="com.grays2.system.domain.Menu">
+        <include refid="getMenuList"/>
+        where parent_id = 0
+        and access >= #{access}
+        order by parent_id, order_num, menu_id
+    </select>
+    <select id="getMenuList" resultType="com.grays2.system.domain.Menu" resultMap="VarcharToList">
+        select sm.*, (select sm1.`name` from sys_menu sm1 where sm1.menu_id = sm.parent_id) as parentName
+        from sys_menu sm
+        order by parent_id, order_num, menu_id
+    </select>
+    <select id="getMenuByName" resultType="com.grays2.system.domain.Menu">
+        <include refid="getMenuList"/>
+        where name = #{name}
+    </select>
+    <select id="getLastId" resultType="java.lang.Integer">
+        select menu_id
+        from sys_menu
+        order by menu_id desc
+        limit 1
+    </select>
+    <select id="getMenuListByParentId" resultType="com.grays2.system.domain.Menu">
+        <include refid="getMenuList"/>
+        where parent_id=#{id}
+    </select>
+    <select id="getMenuLists" resultType="com.grays2.system.domain.Menu">
+        <include refid="getMenuList"/>
+        where menu_id in
+        <foreach collection="list" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <update id="updateMenuList">
+        <foreach collection="list" index="index" separator=";" close="" open="" item="item">
+            update sys_menu set
+            <if test="item.name!=null and item.name!= ''">
+                name=#{item.name},
+            </if>
+            <if test="item.url!=null and item.url!= ''">
+                url=#{item.url},
+            </if>
+            <if test="item.parentId!=null and item.parentId!= ''">
+                parent_id=#{item.parentId},
+            </if>
+            <if test="item.type!=null and item.type!= ''">
+                type=#{item.type},
+            </if>
+            <if test="item.icon!=null and item.icon!= ''">
+                icon=#{item.icon},
+            </if>
+            <if test="item.orderNum!=null and item.orderNum!= ''">
+                order_num=#{item.orderNum},
+            </if>
+            <if test="item.access!=null and item.access!= ''">
+                access=#{item.access},
+            </if>
+            <if test="item.perms!=null and item.perms.size!=0">
+                perms=#{item.perms,typeHandler=com.grays2.common.typeHandler.ListToVarcharTypeHandler},
+            </if>
+            <if test="item.permsType!=null and item.permsType!= ''">
+                perms_type=#{item.permsType},
+            </if>
+            <if test="item.role!=null and item.role.size!=0">
+                role=#{item.role,typeHandler=com.grays2.common.typeHandler.ListToVarcharTypeHandler},
+            </if>
+            <if test="item.roleType!=null and item.roleType!= ''">
+                role_type=#{item.roleType},
+            </if>
+            menu_id=#{item.menuId}
+            where menu_id = #{item.menuId}
+        </foreach>
+    </update>
+</mapper>

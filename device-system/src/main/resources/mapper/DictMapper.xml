@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grays2.system.mapper.DictMapper">
+    <update id="updateDBID">
+        update sys_dict
+        set dict=#{dict}
+        where type = #{type}
+    </update>
+
+    <select id="getLastId" resultType="java.lang.Integer">
+        select id
+        from sys_dict
+        order by id desc
+        limit 1
+    </select>
+</mapper>

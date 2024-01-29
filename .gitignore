@@ -1,0 +1,4 @@
+# Project exclude paths
+/device-admin/target/
+/device-common/target/
+/device-system/target/

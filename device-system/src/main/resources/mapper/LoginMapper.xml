@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grays2.system.mapper.LoginMapper">
+    <sql id="getAllLogin">
+        select *
+        from sys_login
+    </sql>
+    <select id="getList" resultType="com.grays2.system.domain.vo.LoginVo">
+        <include refid="getAllLogin"/>
+        order by id desc
+    </select>
+    <insert id="insertLogin" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_login (account, username, time, ip, mobile, inner_ip)
+        VALUES (#{login.account}, #{login.username}, #{login.time}, #{login.ip}, #{login.mobile}, #{login.innerIp})
+    </insert>
+    <select id="getLastByUsername" resultType="com.grays2.system.domain.vo.LoginVo">
+        select *
+        from sys_login sl
+        where sl.username = #{username}
+        order by time desc
+        limit 1
+    </select>
+    <select id="getListByAccount" resultType="com.grays2.system.domain.vo.LoginVo">
+        select *
+        from sys_login
+        where account = #{account}
+        order by time desc
+        limit 4
+    </select>
+    <select id="getLastByAccount" resultType="com.grays2.system.domain.vo.LoginVo">
+        select *
+        from sys_login
+        where account = #{account}
+        order by time desc
+        limit 1
+    </select>
+</mapper>

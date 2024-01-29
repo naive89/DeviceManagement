@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grays2.system.mapper.NoticeMapper">
+    <insert id="insertBo" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into sys_notices (title, time, icon)
+        values (#{bo.title}, #{bo.time}, #{bo.icon})
+    </insert>
+    <select id="getList" resultType="com.grays2.system.domain.Notices">
+        select *
+        from sys_notices
+        order by time desc
+    </select>
+</mapper>
