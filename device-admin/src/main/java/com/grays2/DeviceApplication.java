@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
 @SpringBootApplication
-@MapperScan(value = {"com.grays2.system.mapper"})
+@MapperScan(value = {"com.grays2.*.mapper"})
 public class DeviceApplication {
     public static void main(String[] args) {
         SpringApplication.run(DeviceApplication.class, args);

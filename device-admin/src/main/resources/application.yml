@@ -16,7 +16,9 @@ spring:
     password: 12d8870390857f96
 
   main:
+    #开启循环依赖
     allow-circular-references: true
+    #允许定义的相同的bean对象去覆盖原有的
     allow-bean-definition-overriding: true
 
   mvc:
@@ -80,4 +82,4 @@ pagehelper:
   page-size-zero: true
 mybatis-plus:
   configuration:
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

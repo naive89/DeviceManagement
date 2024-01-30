@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>device-system</artifactId>
+    <artifactId>device-manage</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -21,19 +21,6 @@
             <artifactId>device-common</artifactId>
             <version>1.0.0</version>
             <scope>compile</scope>
-        </dependency>
-        <!--http-->
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpclient</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 </project>

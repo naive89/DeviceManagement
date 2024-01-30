@@ -1,5 +1,6 @@
 package com.grays2.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,7 +18,8 @@ import java.time.LocalDateTime;
 @TableName("sys_login")
 @Api(value = "登录实体", tags = {"登录实体"})
 public class Login {
-    @TableId
+
+    @TableId(type = IdType.AUTO)
     @ApiModelProperty(value = "登录编号", required = true)
     private Integer id;
     @ApiModelProperty(value = "账号", required = true)

@@ -90,6 +90,7 @@ public class RequestLogAspect {
         try {
             result = pjp.proceed();
         } catch (Throwable throwable) {
+            System.out.println(throwable.getMessage());
             //请求操纵失败
             //记录错误日志
             logger.error("ε=ε=ε=ε=ε=ε=┌(;￣◇￣)┘          切面处理请求错误！ IP信息(ง•̀_•́)ง->： 【{}】 " + "URI信息(ง•̀_•́)ง->：【{}】 请求映射控制类(ง•̀_•́)ง->：【{}】 " + "请求方法(ง•̀_•́)ง->：【{}】 请求设备(ง•̀_•́)ง->：【{}】 " + "请求参数列表(ง•̀_•́)ง->：【{}】", ip, URI, clazzName, "", methodName, params);

@@ -1,21 +1,18 @@
 package com.grays2.system.service.impl;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+
 
 import com.grays2.common.constant.RedisConstant;
 import com.grays2.common.redis.RedisUtils;
 import com.grays2.system.domain.User;
 import com.grays2.system.mapper.UserMapper;
 import com.grays2.system.service.CountService;
-import lombok.SneakyThrows;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.net.URL;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -56,45 +53,6 @@ public class CountServiceImpl implements CountService {
             list.add(m);
         });
         return list;
-    }
-
-
-
-    @Override
-    @SneakyThrows
-    public Map<String, Object> getContribution() {
-        String url = "https://gitee.com/cai-bin00_admin";
-        Document document = Jsoup.parse(new URL(url), 1000000);
-        Elements boxLess = new Elements();
-        boxLess.addAll(document.getElementsByClass("box less"));
-        boxLess.addAll(document.getElementsByClass("box little"));
-        boxLess.addAll(document.getElementsByClass("box some"));
-        boxLess.addAll(document.getElementsByClass("box many"));
-        boxLess.addAll(document.getElementsByClass("box much"));
-
-        Elements dates = document.getElementsByAttribute("date");
-        String start = dates.first().toString().split("个贡献：")[1].split("\" date=\"")[0];
-        String end = dates.last().toString().split("个贡献：")[1].split("\" date=\"")[0];
-
-        List<List<Object>> data = new ArrayList<>();
-        boxLess.forEach(box -> {
-            String s = box.toString();
-            String[] split = s.split("data-content=\"")[1].split("\"")[0].split("个贡献：");
-            int num = Integer.parseInt(split[0]);
-            String day = split[1];
-            List<Object> list = new ArrayList<>();
-            list.add(day);
-            list.add(num);
-            data.add(list);
-        });
-        Map<String, Object> resultMap = new HashMap<>();
-
-        List<String> date = new ArrayList<>();
-        date.add(start);
-        date.add(end);
-        resultMap.put("date", date);
-        resultMap.put("data", data);
-        return resultMap;
     }
 
 }

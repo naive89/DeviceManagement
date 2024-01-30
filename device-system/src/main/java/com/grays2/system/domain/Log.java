@@ -1,10 +1,11 @@
 package com.grays2.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,9 @@ import java.time.LocalDateTime;
 @TableName("sys_log")
 @Api(value = "日志实体", tags = {"日志实体"})
 public class Log {
+
     @ApiModelProperty("主键")
+    @TableId(type = IdType.AUTO)
     private Integer id;
     @ApiModelProperty("操作账户")
     private String account;

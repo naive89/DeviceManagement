@@ -7,8 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="device-admin" />
         <module name="device-common" />
+        <module name="device-manage" />
+        <module name="device-admin" />
         <module name="device-system" />
       </profile>
     </annotationProcessing>
@@ -18,6 +19,7 @@
       <module name="DeviceManagement" options="" />
       <module name="device-admin" options="-parameters" />
       <module name="device-common" options="-parameters" />
+      <module name="device-manage" options="-parameters" />
       <module name="device-system" options="-parameters" />
     </option>
   </component>

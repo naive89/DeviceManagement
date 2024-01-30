@@ -36,12 +36,5 @@ public class CountController {
         return R.ok(countService.getUserInsert());
     }
 
-    @ResponseBody
-    @ApiOperation("项目贡献度")
-    @RequestMapping("/Contribution")
-    public R<Map<String, Object>> getContribution() {
-        return R.ok(countService.getContribution());
-    }
-
 
 }

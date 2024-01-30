@@ -8,6 +8,7 @@
         <module>device-common</module>
         <module>device-system</module>
         <module>device-admin</module>
+        <module>device-manage</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

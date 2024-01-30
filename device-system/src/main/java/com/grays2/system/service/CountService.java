@@ -8,6 +8,4 @@ public interface CountService {
     Map<String, Object> getProjectLine();
 
     List<Map<String, Integer>> getUserInsert();
-    Map<String, Object> getContribution();
-
 }
