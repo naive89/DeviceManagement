@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grays2.device.mapper.DeviceMessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.grays2.device.domain.DeviceMessage">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="inspectionCycle" column="inspection_cycle" jdbcType="INTEGER"/>
+            <result property="typeId" column="type_id" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="deviceId" column="device_id" jdbcType="INTEGER"/>
+            <result property="place" column="place" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="scrap" column="scrap" jdbcType="INTEGER"/>
+            <result property="amount" column="amount" jdbcType="INTEGER"/>
+            <result property="barcode" column="barcode" jdbcType="VARCHAR"/>
+            <result property="inspection" column="inspection" jdbcType="INTEGER"/>
+            <result property="installTime" column="install_time" jdbcType="TIMESTAMP"/>
+            <result property="expiryTime" column="expiry_time" jdbcType="TIMESTAMP"/>
+            <result property="companyId" column="company_id" jdbcType="INTEGER"/>
+            <result property="factoryDate" column="factory_date" jdbcType="TIMESTAMP"/>
+            <result property="warranty" column="warranty" jdbcType="VARCHAR"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,inspection_cycle,type_id,
+        name,device_id,place,
+        status,scrap,amount,
+        barcode,inspection,install_time,
+        expiry_time,company_id,factory_date,
+        warranty,create_time
+    </sql>
+</mapper>

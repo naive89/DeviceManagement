@@ -1,4 +1,4 @@
-package com.grays2.web.controller;
+package com.grays2.web.controller.sys;
 
 import cn.dev33.satoken.stp.StpUtil;
 import com.grays2.common.result.R;

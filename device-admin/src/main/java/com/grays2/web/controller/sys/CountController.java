@@ -1,4 +1,4 @@
-package com.grays2.web.controller;
+package com.grays2.web.controller.sys;
 
 import com.grays2.common.result.R;
 import com.grays2.system.service.CountService;

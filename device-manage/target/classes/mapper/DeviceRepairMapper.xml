@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grays2.device.mapper.DeviceRepairMapper">
+
+    <resultMap id="BaseResultMap" type="com.grays2.device.domain.DeviceRepair">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="deviceId" column="device_id" jdbcType="INTEGER"/>
+            <result property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="faultTime" column="fault_time" jdbcType="TIMESTAMP"/>
+            <result property="repairTime" column="repair_time" jdbcType="TIMESTAMP"/>
+            <result property="repairParts" column="repair_parts" jdbcType="VARCHAR"/>
+            <result property="repairStatus" column="repair_status" jdbcType="VARCHAR"/>
+            <result property="failureCause" column="failure_cause" jdbcType="VARCHAR"/>
+            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+            <result property="method" column="method" jdbcType="INTEGER"/>
+            <result property="factory" column="factory" jdbcType="VARCHAR"/>
+            <result property="cost" column="cost" jdbcType="DECIMAL"/>
+            <result property="deviceFactory" column="device_factory" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,device_id,user_id,
+        fault_time,repair_time,repair_parts,
+        repair_status,failure_cause,remark,
+        method,factory,cost,
+        device_factory
+    </sql>
+</mapper>
