@@ -30,6 +30,7 @@ public class UserController {
 
     /**
      * 用户列表
+     *
      * @param pageBo
      * @return
      */
@@ -39,8 +40,16 @@ public class UserController {
         return R.ok(userService.getList(pageBo));
     }
 
+    @ResponseBody
+    @RequestMapping("/List")
+    public R getLists() {
+        List<UserVo> list = this.userService.getList();
+        return R.ok(list);
+    }
+
     /**
      * 在线用户列表
+     *
      * @param pageBo
      * @return
      */
@@ -53,6 +62,7 @@ public class UserController {
 
     /**
      * 搜索用户列表-支持模糊查询
+     *
      * @param username
      * @param pageBo
      * @return
@@ -65,6 +75,7 @@ public class UserController {
 
     /**
      * 获取用户头像
+     *
      * @return
      */
     @ResponseBody
@@ -76,6 +87,7 @@ public class UserController {
 
     /**
      * 主页回显个人信息
+     *
      * @return
      */
     @ResponseBody

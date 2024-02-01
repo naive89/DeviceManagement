@@ -14,7 +14,6 @@ import java.util.List;
  * @createDate 2024-01-30 13:40:04
  */
 public interface DeviceTypeService {
-
     List<DeviceType> getLists();
 
     PageVo<DeviceType> getList(PageBo pageBo);

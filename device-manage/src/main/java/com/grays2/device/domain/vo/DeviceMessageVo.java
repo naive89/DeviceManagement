@@ -1,20 +1,26 @@
 package com.grays2.device.domain.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
+
 
 import java.util.Date;
 
+
 @Data
 public class DeviceMessageVo {
+
+    private Integer id;
     /**
      * 巡检周期
      */
     private Integer inspectionCycle;
 
     /**
-     * 类型
+     * 类型名称
      */
-    private Integer typeId;
+    private String typeName;
 
     /**
      * 名称
@@ -59,21 +65,24 @@ public class DeviceMessageVo {
     /**
      * 安装时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date installTime;
 
     /**
      * 到期时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date expiryTime;
 
     /**
-     * 厂商ID
+     * 厂商名称
      */
-    private Integer companyId;
+    private String companyName;
 
     /**
      * 出厂日期
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date factoryDate;
 
     /**
@@ -84,5 +93,6 @@ public class DeviceMessageVo {
     /**
      * 添加时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 }

@@ -1,12 +1,4 @@
-package com.grays2.device.domain;
-
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.time.LocalDate;
-import java.util.Date;
+package com.grays2.device.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -15,17 +7,14 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import lombok.Data;
 
-/**
- * 设备报废
- * @TableName device_scrap
- */
-@TableName(value ="device_scrap")
+import java.time.LocalDate;
+
 @Data
-public class DeviceScrap implements Serializable {
+public class ScrapVo {
+
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -34,17 +23,19 @@ public class DeviceScrap implements Serializable {
     private Integer deviceId;
 
     /**
-     * 报废用户Id
+     * 设备名称
      */
-    private Integer userId;
+    private String deviceName;
 
     /**
-     * 报废日期
+     * 用户名称
      */
+    private String userName;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
-    private Date scrapTime;
+    private LocalDate scrapTime;
 
     /**
      * 报废类型
@@ -65,7 +56,4 @@ public class DeviceScrap implements Serializable {
      * 备注
      */
     private String remark;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }

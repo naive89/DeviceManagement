@@ -5,19 +5,51 @@
 <mapper namespace="com.grays2.device.mapper.DeviceScrapMapper">
 
     <resultMap id="BaseResultMap" type="com.grays2.device.domain.DeviceScrap">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="deviceId" column="device_id" jdbcType="INTEGER"/>
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
-            <result property="scrapTime" column="scrap_time" jdbcType="TIMESTAMP"/>
-            <result property="type" column="type" jdbcType="VARCHAR"/>
-            <result property="scrapDestination" column="scrap_destination" jdbcType="VARCHAR"/>
-            <result property="handle" column="handle" jdbcType="VARCHAR"/>
-            <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="deviceId" column="device_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="scrapTime" column="scrap_time" jdbcType="TIMESTAMP"/>
+        <result property="type" column="type" jdbcType="VARCHAR"/>
+        <result property="scrapDestination" column="scrap_destination" jdbcType="VARCHAR"/>
+        <result property="handle" column="handle" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,device_id,user_id,
+        id
+        ,device_id,user_id,
         scrap_time,type,scrap_destination,
         handle,remark
     </sql>
+    <select id="getLists" resultType="com.grays2.device.domain.vo.ScrapVo">
+        SELECT scrap.id,
+               message.device_id,
+               message.`name` AS device_name,
+               sys.`name`     AS user_name,
+               scrap.scrap_time,
+               scrap.type,
+               scrap.scrap_destination,
+               scrap.handle,
+               scrap.remark
+        FROM device_scrap AS scrap
+                 LEFT JOIN device_message AS message ON scrap.device_id = message.device_id
+                 LEFT JOIN sys_user AS sys ON sys.user_id = scrap.user_id
+        ORDER BY scrap.scrap_time DESC
+    </select>
+    <select id="getSearch" resultType="com.grays2.device.domain.vo.ScrapVo">
+        SELECT scrap.id,
+               message.device_id,
+               message.`name` AS device_name,
+               sys.`name`     AS user_name,
+               scrap.scrap_time,
+               scrap.type,
+               scrap.scrap_destination,
+               scrap.handle,
+               scrap.remark
+        FROM device_scrap AS scrap
+                 LEFT JOIN device_message AS message ON scrap.device_id = message.device_id
+                 LEFT JOIN sys_user AS sys ON sys.user_id = scrap.user_id
+        WHERE scrap.type = #{name}
+        ORDER BY scrap.scrap_time DESC
+    </select>
 </mapper>
