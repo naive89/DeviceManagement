@@ -21,7 +21,7 @@
         create_time
     </sql>
     <select id="getList" resultType="com.grays2.device.domain.vo.InspectionVo">
-        SELECT message.id,
+        SELECT inspection.id,
                message.device_id,
                message.`name` AS device_name,
                sys.`name`     AS user_name,
@@ -36,7 +36,7 @@
         ORDER BY inspection.create_time DESC
     </select>
     <select id="searchDeviceInspection" resultType="com.grays2.device.domain.vo.InspectionVo">
-        SELECT message.id,
+        SELECT inspection.id,
                message.device_id,
                message.`name` AS device_name,
                sys.`name`     AS user_name,

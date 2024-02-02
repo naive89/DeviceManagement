@@ -169,9 +169,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public R<String> insert(UserBo bo) {
         if (checkUserExist(bo.getUsername())) return R.fail("用户名已存在");
-        String check = CheckUtils.checkUserBo(bo);
-        //检查结果不为空
-        if (StringUtils.isNotEmpty(check)) return R.fail(check);
+//        String check = CheckUtils.checkUserBo(bo);
+//        //检查结果不为空
+//        if (StringUtils.isNotEmpty(check)) return R.fail(check);
         //校验没问题
         User user = new User();
         user.setUsername(user.getUsername());

@@ -48,7 +48,7 @@ public class SystemConstant {
     /**
      * 新增用户默认头像ID
      */
-    public static final int image_Id = 1;
+    public static final int image_Id = 4;
     /**
      * 好友关系-正常
      */

@@ -13,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://124.70.45.144:3306/device?serverTimezone=GMT%2B8&useUnicode=true&autoReconnect=true&allowMultiQueries=true&userSSL=false&characterEncoding=UTF8
     username: root
-    password: 12d8870390857f96
+    password: 123456
 
   main:
     #开启循环依赖
@@ -30,7 +30,7 @@ spring:
     host: 124.70.45.144
     port: 6379
     database: 3
-    password: a3f6aedd8df57c93
+    password: 123456
     connect-timeout: 3000
   servlet:
     multipart:
@@ -66,7 +66,7 @@ sa-token:
   # token风格
   token-style: uuid
   # 是否输出操作日志
-  is-log: true
+  is-log: false
 pagehelper:
   # 设置方言，此处指定 MySQL 数据库
   helper-dialect: mysql

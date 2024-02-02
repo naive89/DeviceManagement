@@ -5,26 +5,68 @@
 <mapper namespace="com.grays2.device.mapper.DeviceRepairMapper">
 
     <resultMap id="BaseResultMap" type="com.grays2.device.domain.DeviceRepair">
-            <id property="id" column="id" jdbcType="INTEGER"/>
-            <result property="deviceId" column="device_id" jdbcType="INTEGER"/>
-            <result property="userId" column="user_id" jdbcType="INTEGER"/>
-            <result property="faultTime" column="fault_time" jdbcType="TIMESTAMP"/>
-            <result property="repairTime" column="repair_time" jdbcType="TIMESTAMP"/>
-            <result property="repairParts" column="repair_parts" jdbcType="VARCHAR"/>
-            <result property="repairStatus" column="repair_status" jdbcType="VARCHAR"/>
-            <result property="failureCause" column="failure_cause" jdbcType="VARCHAR"/>
-            <result property="remark" column="remark" jdbcType="VARCHAR"/>
-            <result property="method" column="method" jdbcType="INTEGER"/>
-            <result property="factory" column="factory" jdbcType="VARCHAR"/>
-            <result property="cost" column="cost" jdbcType="DECIMAL"/>
-            <result property="deviceFactory" column="device_factory" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="deviceId" column="device_id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="faultTime" column="fault_time" jdbcType="TIMESTAMP"/>
+        <result property="repairTime" column="repair_time" jdbcType="TIMESTAMP"/>
+        <result property="repairParts" column="repair_parts" jdbcType="VARCHAR"/>
+        <result property="repairStatus" column="repair_status" jdbcType="VARCHAR"/>
+        <result property="failureCause" column="failure_cause" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="method" column="method" jdbcType="INTEGER"/>
+        <result property="factory" column="factory" jdbcType="VARCHAR"/>
+        <result property="cost" column="cost" jdbcType="DECIMAL"/>
+        <result property="deviceFactory" column="device_factory" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,device_id,user_id,
+        id
+        ,device_id,user_id,
         fault_time,repair_time,repair_parts,
         repair_status,failure_cause,remark,
         method,factory,cost,
         device_factory
     </sql>
+    <select id="getLists" resultType="com.grays2.device.domain.vo.RepairVo">
+        SELECT rep.id,
+               msg.`name` AS device_name,
+               su.`name`  AS user_name,
+               rep.fault_time,
+               rep.repair_time,
+               rep.repair_parts,
+               rep.repair_status,
+               rep.failure_cause,
+               rep.remark,
+               rep.method,
+               rep.factory,
+               rep.cost,
+               com.`name` AS device_factory_name
+        FROM device_repair AS rep
+                 LEFT JOIN device_message AS msg ON rep.device_id = msg.device_id
+                 LEFT JOIN sys_user AS su ON su.user_id = rep.user_id
+                 LEFT JOIN device_company AS com ON com.id = rep.device_factory
+        ORDER BY rep.fault_time DESC
+    </select>
+    <select id="searchDeviceRepair" resultType="com.grays2.device.domain.vo.RepairVo">
+        SELECT rep.id,
+               msg.`name` AS device_name,
+               su.`name`  AS user_name,
+               rep.fault_time,
+               rep.repair_time,
+               rep.repair_parts,
+               rep.repair_status,
+               rep.failure_cause,
+               rep.remark,
+               rep.method,
+               rep.factory,
+               rep.cost,
+               com.`name` AS device_factory_name
+        FROM device_repair AS rep
+                 LEFT JOIN device_message AS msg ON rep.device_id = msg.device_id
+                 LEFT JOIN sys_user AS su ON su.user_id = rep.user_id
+                 LEFT JOIN device_company AS com ON com.id = rep.device_factory
+        WHERE rep.repair_parts = #{name}
+        ORDER BY rep.fault_time DESC
+    </select>
 </mapper>

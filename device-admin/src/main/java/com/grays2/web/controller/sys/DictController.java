@@ -2,6 +2,9 @@ package com.grays2.web.controller.sys;
 
 import com.grays2.common.result.R;
 import com.grays2.system.domain.Dict;
+import com.grays2.system.domain.bo.PageBo;
+import com.grays2.system.domain.model.LoginTempInfo;
+import com.grays2.system.domain.vo.PageVo;
 import com.grays2.system.service.DictService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,4 +27,10 @@ public class DictController {
         return R.ok(dictService.getDict(dict));
     }
 
+    @ResponseBody
+    @RequestMapping("/lists")
+    public R<PageVo<Dict>> getLists(@RequestBody PageBo pageBo) {
+        PageVo<Dict> lists = this.dictService.getLists(pageBo);
+        return R.ok(lists);
+    }
 }

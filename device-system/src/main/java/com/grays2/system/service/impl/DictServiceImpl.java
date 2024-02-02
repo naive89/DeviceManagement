@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 
 import com.grays2.common.constant.RedisConstant;
 import com.grays2.common.redis.RedisUtils;
+import com.grays2.common.result.R;
 import com.grays2.common.utils.StringUtils;
 import com.grays2.system.domain.Dict;
+import com.grays2.system.domain.bo.PageBo;
+import com.grays2.system.domain.vo.PageVo;
 import com.grays2.system.mapper.*;
 import com.grays2.system.service.DictService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +77,12 @@ public class DictServiceImpl implements DictService {
         map.put(db, getDBId(db));
         redisUtils.set(key_db_id, map);
         dictMapper.updateDBID(key, map.toString());
+    }
+
+    @Override
+    public PageVo<Dict> getLists(PageBo pageBo) {
+        List<Dict> dictLists = this.dictMapper.selectList(null);
+        return new PageVo<>(pageBo,dictLists);
     }
 
     public int getDBId(String db) {

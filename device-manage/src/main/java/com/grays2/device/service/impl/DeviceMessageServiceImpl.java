@@ -51,14 +51,18 @@ public class DeviceMessageServiceImpl extends ServiceImpl<DeviceMessageMapper, D
     @Override
     @Transactional(rollbackFor = Exception.class)
     public R<PageVo<DeviceMessageVo>> delete(DeviceMessageVo deviceMessageVo, PageBo pageBo) {
-        LambdaQueryWrapper<DeviceMessage> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(DeviceMessage::getId, deviceMessageVo.getId());
-        int delete = this.baseMapper.delete(queryWrapper);
-        if (delete == 1) {
-            List<DeviceMessageVo> lists = this.getLists();
-            return R.ok("删除成功", new PageVo<>(pageBo, lists));
+        try {
+            LambdaQueryWrapper<DeviceMessage> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(DeviceMessage::getId, deviceMessageVo.getId());
+            int delete = this.baseMapper.delete(queryWrapper);
+            if (delete == 1) {
+                List<DeviceMessageVo> lists = this.getLists();
+                return R.ok("删除成功", new PageVo<>(pageBo, lists));
+            }
+            return R.warn("删除失败");
+        } catch (Exception e) {
+            return R.warn("请删除此设备相关内容，再尝试删除");
         }
-        return R.warn("删除失败");
     }
 
     @Override
